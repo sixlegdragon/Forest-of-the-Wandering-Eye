@@ -1,3 +1,21 @@
-[gd_scene format=3 uid="uid://bkbstnpjmqxtm"]
+[gd_scene load_steps=4 format=3 uid="uid://bkbstnpjmqxtm"]
+
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_jcoly"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8wwqs"]
+render_priority = 0
+shader = ExtResource("1_jcoly")
+
+[sub_resource type="QuadMesh" id="QuadMesh_2uar1"]
+material = SubResource("ShaderMaterial_8wwqs")
+flip_faces = true
 
 [node name="Node3D" type="Node3D"]
+
+[node name="CameraStuff" type="Node3D" parent="."]
+
+[node name="Outline" type="MeshInstance3D" parent="CameraStuff"]
+mesh = SubResource("QuadMesh_2uar1")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="CameraStuff"]
