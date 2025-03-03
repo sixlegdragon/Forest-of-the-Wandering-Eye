@@ -10,6 +10,8 @@ uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_linear_
 /**
 * Robert Cross will be slightly faster but it does skimp a bit on the corners
 */
+uniform vec3 outline_color : source_color;
+
 uniform bool robertCross_instead_of_sobel = true;
 
 uniform float normal_sobel_offset = .01;
@@ -109,7 +111,9 @@ void fragment() {
 	float combined_outline = max(max(normal_outline, depth_outline), color_outline);
 	//ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz;
 	//ALBEDO = vec3(combined_outline);
-	ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz - vec3(combined_outline);
+	ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz -
+				//this is so darn silly lmao
+				vec3(combined_outline) + vec3(combined_outline) * outline_color;
 }
 
 //void light() {
