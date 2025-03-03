@@ -5,9 +5,17 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8wwqs"]
 render_priority = 0
 shader = ExtResource("1_jcoly")
+shader_parameter/robertCross_instead_of_sobel = false
+shader_parameter/normal_sobel_offset = 0.46
+shader_parameter/normal_thresh = 500.0
+shader_parameter/depth_sobel_offset = 0.705
+shader_parameter/depth_thresh = 10.04
+shader_parameter/color_sobel_offset = 0.0
+shader_parameter/color_thresh = 150.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_2uar1"]
 material = SubResource("ShaderMaterial_8wwqs")
+custom_aabb = AABB(-1000, -1000, -1000, 2000, 2000, 2000)
 flip_faces = true
 
 [node name="Node3D" type="Node3D"]
@@ -17,5 +25,28 @@ flip_faces = true
 [node name="Outline" type="MeshInstance3D" parent="CameraStuff"]
 mesh = SubResource("QuadMesh_2uar1")
 skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraStuff"]
+
+[node name="TestEnviroment" type="Node3D" parent="."]
+
+[node name="floor" type="CSGBox3D" parent="TestEnviroment"]
+size = Vector3(10, 0.1, 10)
+
+[node name="wallLeft" type="CSGBox3D" parent="TestEnviroment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 5)
+size = Vector3(10, 5, 0.1)
+
+[node name="wallBack" type="CSGBox3D" parent="TestEnviroment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.5, 0)
+size = Vector3(0.1, 5, 10)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="TestEnviroment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36421, 0.895013, -1.1312)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="TestEnviroment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544229, 1.1949, 2.51839)
+radius = 0.55
+radial_segments = 20
+rings = 20
