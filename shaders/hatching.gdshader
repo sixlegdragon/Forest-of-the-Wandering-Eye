@@ -7,12 +7,12 @@ void vertex() {
 }
 
 void fragment() {
-	
+
 	vec3 view_normal = (vec4(NORMAL, 1.) * VIEW_MATRIX).xyz;
-	
+
 	//ALBEDO = mod(NORMAL.x, 1.) * _BaseColor;
 	ALBEDO = view_normal;
-	
+
 	// Called for every pixel the material is visible on.
 }
 

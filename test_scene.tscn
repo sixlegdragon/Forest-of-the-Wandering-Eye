@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://bkbstnpjmqxtm"]
 
-[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="1_jcoly"]
-[ext_resource type="Shader" path="res://shaders/normal.gdshader" id="1_xpwtu"]
-[ext_resource type="Shader" path="res://shaders/hatching.gdshader" id="2_c4c2s"]
+[ext_resource type="Shader" uid="uid://cojpmqe7wtklj" path="res://shaders/outline.gdshader" id="1_jcoly"]
+[ext_resource type="Shader" uid="uid://ctgbketlnygux" path="res://shaders/normal.gdshader" id="1_xpwtu"]
+[ext_resource type="Shader" uid="uid://c6efhudnw58a0" path="res://shaders/hatching.gdshader" id="2_c4c2s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sakus"]
 render_priority = 0
