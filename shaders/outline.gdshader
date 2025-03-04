@@ -84,7 +84,6 @@ SOBEL_DEFINE(sobelNormal)
 SOBEL_DEFINE(sobelDepth)
 SOBEL_DEFINE(sobelColor)
 void fragment() {
-
 	float normal_outline = 0.;
 	float depth_outline  = 0.;
 	float color_outline  = 0.;
@@ -109,11 +108,12 @@ void fragment() {
 	}
 
 	float combined_outline = max(max(normal_outline, depth_outline), color_outline);
+
 	//ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz;
-	//ALBEDO = vec3(combined_outline);
-	ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz -
-				//this is so darn silly lmao
-				vec3(combined_outline) + vec3(combined_outline) * outline_color;
+	//ALBEDO = vec3(noise(SCREEN_UV * 5.));
+	ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz;
+	//this is so darn silly lmao
+	ALBEDO += -vec3(combined_outline) + vec3(combined_outline) * outline_color;
 }
 
 //void light() {

@@ -18,11 +18,11 @@ render_priority = 0
 shader = ExtResource("1_jcoly")
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/robertCross_instead_of_sobel = false
-shader_parameter/normal_sobel_offset = 0.46
-shader_parameter/normal_thresh = 500.0
-shader_parameter/depth_sobel_offset = 0.705
-shader_parameter/depth_thresh = 10.04
-shader_parameter/color_sobel_offset = 0.0
+shader_parameter/normal_sobel_offset = 0.433
+shader_parameter/normal_thresh = 485.871
+shader_parameter/depth_sobel_offset = 0.656
+shader_parameter/depth_thresh = 10.877
+shader_parameter/color_sobel_offset = 0.05
 shader_parameter/color_thresh = 150.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_2uar1"]
