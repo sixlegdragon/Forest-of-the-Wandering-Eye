@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://1t8600d6dchu"]
+
+[ext_resource type="PackedScene" uid="uid://b2cfe6o186nwj" path="res://graphics/models/Tent.fbx" id="1_j744d"]
+[ext_resource type="Material" uid="uid://dc3y4gaouaiaw" path="res://graphics/materials/M_tent_v1.tres" id="2_6hkbl"]
+
+[node name="Tent" instance=ExtResource("1_j744d")]
+
+[node name="Flap_L" parent="Tent/Flaps" index="0"]
+material_override = ExtResource("2_6hkbl")
+
+[node name="Flap_R" parent="Tent/Flaps" index="1"]
+material_override = ExtResource("2_6hkbl")
+
+[node name="Shell" parent="Tent" index="1"]
+material_override = ExtResource("2_6hkbl")

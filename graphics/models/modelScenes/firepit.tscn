@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://qmvnxf28fywi"]
+
+[ext_resource type="PackedScene" uid="uid://b1gye4rdhacpi" path="res://graphics/models/Firepit.fbx" id="1_je2rc"]
+[ext_resource type="Material" uid="uid://di5ecvjdmqupa" path="res://graphics/materials/M_wood.tres" id="2_1go5p"]
+[ext_resource type="Material" uid="uid://38uhnqxk4rao" path="res://graphics/materials/M_ash.tres" id="2_pk4rf"]
+
+[node name="Firepit" instance=ExtResource("1_je2rc")]
+
+[node name="FireLog2" parent="Firepit/Firelogs/OGLogs" index="0"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireLog1" parent="Firepit/Firelogs/OGLogs" index="1"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireLog3" parent="Firepit/Firelogs/OGLogs/FireLog2_Instances" index="0"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireLog5" parent="Firepit/Firelogs/OGLogs/FireLog2_Instances" index="1"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireLog9" parent="Firepit/Firelogs/OGLogs/FireLog2_Instances" index="3"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireLog4" parent="Firepit/Firelogs/OGLogs/FireLog1_Instances" index="0"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireLog6" parent="Firepit/Firelogs/OGLogs/FireLog1_Instances" index="1"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireLog7" parent="Firepit/Firelogs/OGLogs/FireLog1_Instances" index="2"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireLog10" parent="Firepit/Firelogs/OGLogs/FireLog1_Instances" index="3"]
+material_override = ExtResource("2_1go5p")
+
+[node name="FireBase" parent="Firepit" index="2"]
+material_override = ExtResource("2_pk4rf")

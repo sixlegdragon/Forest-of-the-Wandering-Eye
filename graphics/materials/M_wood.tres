@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://di5ecvjdmqupa"]
+
+[sub_resource type="Gradient" id="Gradient_53bif"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q508a"]
+gradient = SubResource("Gradient_53bif")
+fill_from = Vector2(1, 1)
+fill_to = Vector2(0, 0)
+
+[resource]
+albedo_color = Color(0.382683, 0.214841, 0.100233, 1)
+albedo_texture = SubResource("GradientTexture2D_q508a")

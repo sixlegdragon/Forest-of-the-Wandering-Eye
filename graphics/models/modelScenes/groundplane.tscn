@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dk2t1e8q2bkel"]
 
-[ext_resource type="PackedScene" uid="uid://dumg3hspsre4d" path="res://graphics/models/Groundplane.fbx" id="1_iw4in"]
-[ext_resource type="Material" uid="uid://cqrmslp1icgo0" path="res://graphics/materials/testMaterial.tres" id="2_gya6k"]
+[ext_resource type="PackedScene" uid="uid://dumg3hspsre4d" path="res://graphics/models/Groundplane.fbx" id="1_xx4fk"]
+[ext_resource type="Material" uid="uid://cqrmslp1icgo0" path="res://graphics/materials/M_testMaterial.tres" id="2_lqn72"]
 
-[node name="Groundplane" instance=ExtResource("1_iw4in")]
+[node name="Groundplane" instance=ExtResource("1_xx4fk")]
 
 [node name="GroundPlane" parent="." index="0"]
-material_override = ExtResource("2_gya6k")
+material_override = ExtResource("2_lqn72")
