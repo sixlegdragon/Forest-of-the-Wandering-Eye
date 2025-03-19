@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6k0l0sdlwdxf"]
+
+[ext_resource type="PackedScene" uid="uid://bbrvh8rhxa0oe" path="res://graphics/models/Vessels.fbx" id="1_5s8a3"]
+[ext_resource type="Material" uid="uid://1v3sdft0qr6c" path="res://graphics/materials/M_greenGlass.tres" id="2_iot4h"]
+
+[node name="Vessels" instance=ExtResource("1_5s8a3")]
+
+[node name="Bottle2" parent="LiquorBottle/Bottle" index="0"]
+material_override = ExtResource("2_iot4h")

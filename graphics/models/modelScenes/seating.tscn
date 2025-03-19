@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqmncpm8qhiw2"]
+
+[ext_resource type="PackedScene" uid="uid://bnq7pwyy1nmx1" path="res://graphics/models/Seating.fbx" id="1_jfa1c"]
+[ext_resource type="Material" uid="uid://8mse6c4ic22u" path="res://graphics/materials/M_log.tres" id="2_16roq"]
+
+[node name="Seating" instance=ExtResource("1_jfa1c")]
+
+[node name="SittingLog" parent="Seating" index="0"]
+material_override = ExtResource("2_16roq")
+
+[node name="SittingLog1" parent="Seating" index="1"]
+material_override = ExtResource("2_16roq")
+
+[node name="SittingLog2" parent="Seating" index="2"]
+material_override = ExtResource("2_16roq")
