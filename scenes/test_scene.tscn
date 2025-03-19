@@ -4,11 +4,11 @@
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_a3rb7"]
 [ext_resource type="Shader" path="res://shaders/hatching.gdshader" id="3_gweji"]
 [ext_resource type="PackedScene" uid="uid://cvmcrsyxxy2jw" path="res://graphics/models/Bushes.fbx" id="4_2d7xy"]
-[ext_resource type="PackedScene" uid="uid://b1gye4rdhacpi" path="res://graphics/models/Firepit.fbx" id="5_hguru"]
-[ext_resource type="PackedScene" uid="uid://dumg3hspsre4d" path="res://graphics/models/Groundplane.fbx" id="6_bh2hl"]
+[ext_resource type="PackedScene" uid="uid://qmvnxf28fywi" path="res://graphics/models/modelScenes/firepit.tscn" id="5_t61ee"]
+[ext_resource type="PackedScene" uid="uid://dk2t1e8q2bkel" path="res://graphics/models/modelScenes/groundplane.tscn" id="6_u18tk"]
 [ext_resource type="PackedScene" uid="uid://bnq7pwyy1nmx1" path="res://graphics/models/Seating.fbx" id="7_ee0i8"]
-[ext_resource type="PackedScene" uid="uid://b2cfe6o186nwj" path="res://graphics/models/Tent.fbx" id="8_8hpwb"]
 [ext_resource type="PackedScene" uid="uid://bfglriu3jocfq" path="res://graphics/models/Trees.fbx" id="9_61egx"]
+[ext_resource type="PackedScene" uid="uid://dkgk25vtjuvib" path="res://graphics/models/modelScenes/tent_v2.tscn" id="10_eiubx"]
 [ext_resource type="PackedScene" uid="uid://bbrvh8rhxa0oe" path="res://graphics/models/Vessels.fbx" id="10_k7obk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sakus"]
@@ -23,14 +23,6 @@ flip_faces = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8wwqs"]
 render_priority = 0
 shader = ExtResource("2_a3rb7")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/robertCross_instead_of_sobel = false
-shader_parameter/normal_sobel_offset = 0.433
-shader_parameter/normal_thresh = 485.871
-shader_parameter/depth_sobel_offset = 0.656
-shader_parameter/depth_thresh = 10.877
-shader_parameter/color_sobel_offset = 0.05
-shader_parameter/color_thresh = 150.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_2uar1"]
 material = SubResource("ShaderMaterial_8wwqs")
@@ -92,14 +84,14 @@ material = SubResource("ShaderMaterial_p5wyk")
 
 [node name="Bushes" parent="IndiaStuff" instance=ExtResource("4_2d7xy")]
 
-[node name="Firepit" parent="IndiaStuff" instance=ExtResource("5_hguru")]
+[node name="Firepit2" parent="IndiaStuff" instance=ExtResource("5_t61ee")]
 
-[node name="Groundplane" parent="IndiaStuff" instance=ExtResource("6_bh2hl")]
+[node name="Groundplane2" parent="IndiaStuff" instance=ExtResource("6_u18tk")]
 
 [node name="Seating" parent="IndiaStuff" instance=ExtResource("7_ee0i8")]
-
-[node name="Tent" parent="IndiaStuff" instance=ExtResource("8_8hpwb")]
 
 [node name="Trees" parent="IndiaStuff" instance=ExtResource("9_61egx")]
 
 [node name="Vessels" parent="IndiaStuff" instance=ExtResource("10_k7obk")]
+
+[node name="Tent2" parent="IndiaStuff" instance=ExtResource("10_eiubx")]
