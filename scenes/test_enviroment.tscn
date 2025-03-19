@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnqloswfsikmp"]
+
+[ext_resource type="Shader" uid="uid://c6efhudnw58a0" path="res://shaders/hatching.gdshader" id="1_m7qq7"]
+[ext_resource type="PackedScene" uid="uid://b2sjpxmwkt4rf" path="res://scenes/CameraStuff.tscn" id="2_8hv5g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5wyk"]
+render_priority = 0
+shader = ExtResource("1_m7qq7")
+shader_parameter/_BaseColor = Color(0.909103, 0.636515, 0.833002, 1)
+
+[node name="TestEnviroment" type="Node3D"]
+
+[node name="floor" type="CSGBox3D" parent="."]
+size = Vector3(10, 0.1, 10)
+
+[node name="wallLeft" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 5)
+size = Vector3(10, 5, 0.1)
+
+[node name="wallBack" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.5, 0)
+size = Vector3(0.1, 5, 10)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.36421, 0.895013, -1.1312)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544229, 1.1949, 2.51839)
+radius = 0.55
+radial_segments = 20
+rings = 20
+
+[node name="HatchingTest" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55511, 1.63463, 1.70105)
+radial_segments = 50
+rings = 50
+smooth_faces = false
+material = SubResource("ShaderMaterial_p5wyk")
+
+[node name="CameraStuff" parent="." instance=ExtResource("2_8hv5g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0397081, -1.43051e-06, 0.12125)

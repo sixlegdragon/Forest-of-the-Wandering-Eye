@@ -1,5 +1,7 @@
 shader_type spatial;
 
+#include "Helpers.gdshaderinc"
+
 render_mode unshaded;
 render_mode cull_disabled;
 
@@ -7,11 +9,18 @@ uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_linear_mipmap;
 
+
+uniform sampler2D screen_overlay;
+
+uniform vec3 outline_color : source_color;
+
+uniform vec2 squiggle_time_modifier = vec2(1., 10.);
+uniform vec2 squiggle_uv_stretch = vec2(10., 2.);
+uniform float squiggle_intensity = .0001;
+
 /**
 * Robert Cross will be slightly faster but it does skimp a bit on the corners
 */
-uniform vec3 outline_color : source_color;
-
 uniform bool robertCross_instead_of_sobel = true;
 
 uniform float normal_sobel_offset = .01;
@@ -94,17 +103,19 @@ void fragment() {
 	} else {
 		//we are tall [|]
 		aspect_modifier = vec2(float(VIEWPORT_SIZE.y) / float(VIEWPORT_SIZE.x), 1.);
-
 	}
+	vec2 timeModifier = vec2(squiggle_time_modifier.x * sin(TIME), TIME*squiggle_time_modifier.y);
+	float diisplacementNoise = snoise(squiggle_uv_stretch * SCREEN_UV + timeModifier);
+	vec2 modifiedUV = SCREEN_UV + .001 * pow(squiggle_intensity, 2) * diisplacementNoise;
 
 	if(robertCross_instead_of_sobel){
-		normal_outline = robertCrossNormal(NORMAL_TEXTURE, SCREEN_UV, aspect_modifier * normal_sobel_offset, normal_thresh);
-		depth_outline = robertCrossDepth(DEPTH_TEXTURE, SCREEN_UV, aspect_modifier * depth_sobel_offset, depth_thresh);
-		color_outline = robertCrossColor(SCREEN_TEXTURE, SCREEN_UV, aspect_modifier * color_sobel_offset, color_thresh);
+		normal_outline = robertCrossNormal(NORMAL_TEXTURE, modifiedUV, aspect_modifier * normal_sobel_offset, normal_thresh);
+		depth_outline = robertCrossDepth(DEPTH_TEXTURE, modifiedUV, aspect_modifier * depth_sobel_offset, depth_thresh);
+		color_outline = robertCrossColor(SCREEN_TEXTURE, modifiedUV, aspect_modifier * color_sobel_offset, color_thresh);
 	} else {
-		normal_outline = sobelNormal(NORMAL_TEXTURE, SCREEN_UV, aspect_modifier * normal_sobel_offset, normal_thresh);
-		depth_outline = sobelDepth(DEPTH_TEXTURE, SCREEN_UV, aspect_modifier * depth_sobel_offset, depth_thresh);
-		color_outline = sobelColor(SCREEN_TEXTURE, SCREEN_UV, aspect_modifier * color_sobel_offset, color_thresh);
+		normal_outline = sobelNormal(NORMAL_TEXTURE, modifiedUV, aspect_modifier * normal_sobel_offset, normal_thresh);
+		depth_outline = sobelDepth(DEPTH_TEXTURE, modifiedUV, aspect_modifier * depth_sobel_offset, depth_thresh);
+		color_outline = sobelColor(SCREEN_TEXTURE, modifiedUV, aspect_modifier * color_sobel_offset, color_thresh);
 	}
 
 	float combined_outline = max(max(normal_outline, depth_outline), color_outline);
@@ -113,7 +124,10 @@ void fragment() {
 	//ALBEDO = vec3(noise(SCREEN_UV * 5.));
 	ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz;
 	//this is so darn silly lmao
-	ALBEDO += -vec3(combined_outline) + vec3(combined_outline) * outline_color;
+	ALBEDO +=  -vec3(combined_outline) + vec3(combined_outline) * outline_color;
+	
+	vec3 overlay_color = texture(screen_overlay, SCREEN_UV * 2.).xyz;
+	ALBEDO *= overlay_color * overlay_color;
 }
 
 //void light() {
