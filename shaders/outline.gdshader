@@ -50,8 +50,7 @@ float roberCrossName(in sampler2D tex, in vec2 uv, in vec2 roberts_cross_offset,
 	float differential = sqrt(dot(cross1, cross1) + dot(cross2, cross2)); \
 	differential = differential > thresh * .001 ? 1. : 0.; \
 	return differential; \
-}
-
+} 
 
 //[p0, p1, p2] -> [(-,-) | (0,-) | (+,-)]
 //[p3, na, p4] -> [(-,0) | (n/a) | (+,0)]
@@ -92,6 +91,7 @@ ROBERT_CROSS_DEFINE(robertCrossColor)
 SOBEL_DEFINE(sobelNormal)
 SOBEL_DEFINE(sobelDepth)
 SOBEL_DEFINE(sobelColor)
+
 void fragment() {
 	float normal_outline = 0.;
 	float depth_outline  = 0.;
@@ -117,17 +117,20 @@ void fragment() {
 		depth_outline = sobelDepth(DEPTH_TEXTURE, modifiedUV, aspect_modifier * depth_sobel_offset, depth_thresh);
 		color_outline = sobelColor(SCREEN_TEXTURE, modifiedUV, aspect_modifier * color_sobel_offset, color_thresh);
 	}
-
+	
 	float combined_outline = max(max(normal_outline, depth_outline), color_outline);
+	
 
 	//ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz;
 	//ALBEDO = vec3(noise(SCREEN_UV * 5.));
 	ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz;
 	//this is so darn silly lmao
-	ALBEDO +=  -vec3(combined_outline) + vec3(combined_outline) * outline_color;
+	vec3 colored_outline = ALBEDO * combined_outline;
+	ALBEDO = ALBEDO * (1.-vec3(combined_outline));
+	ALBEDO += colored_outline * outline_color;
 	
-	vec3 overlay_color = texture(screen_overlay, SCREEN_UV * 2.).xyz;
-	ALBEDO *= overlay_color * overlay_color;
+	//vec3 overlay_color = texture(screen_overlay, SCREEN_UV * 2.).xyz;
+	//ALBEDO *= overlay_color * overlay_color;
 }
 
 //void light() {

@@ -1,0 +1,3 @@
+@tool
+extends CompositorEffect
+class_name PostProcessShader
