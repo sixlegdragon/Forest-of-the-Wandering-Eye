@@ -105,8 +105,8 @@ void fragment() {
 		aspect_modifier = vec2(float(VIEWPORT_SIZE.y) / float(VIEWPORT_SIZE.x), 1.);
 	}
 	vec2 timeModifier = vec2(squiggle_time_modifier.x * sin(TIME), TIME*squiggle_time_modifier.y);
-	float diisplacementNoise = snoise(squiggle_uv_stretch * SCREEN_UV + timeModifier);
-	vec2 modifiedUV = SCREEN_UV + .001 * pow(squiggle_intensity, 2) * diisplacementNoise;
+	float displacementNoise = snoise(squiggle_uv_stretch * SCREEN_UV + timeModifier) * texture(DEPTH_TEXTURE, SCREEN_UV).x;
+	vec2 modifiedUV = SCREEN_UV + .25 * pow(squiggle_intensity, 2) * displacementNoise;
 
 	if(robertCross_instead_of_sobel){
 		normal_outline = robertCrossNormal(NORMAL_TEXTURE, modifiedUV, aspect_modifier * normal_sobel_offset, normal_thresh);
@@ -128,7 +128,6 @@ void fragment() {
 	vec3 colored_outline = ALBEDO * combined_outline;
 	ALBEDO = ALBEDO * (1.-vec3(combined_outline));
 	ALBEDO += colored_outline * outline_color;
-	
 	//vec3 overlay_color = texture(screen_overlay, SCREEN_UV * 2.).xyz;
 	//ALBEDO *= overlay_color * overlay_color;
 }
