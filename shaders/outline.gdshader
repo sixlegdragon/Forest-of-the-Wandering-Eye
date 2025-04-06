@@ -9,7 +9,6 @@ uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_linear_mipmap;
 
-
 uniform sampler2D screen_overlay;
 
 uniform vec3 outline_color : source_color;
@@ -17,11 +16,6 @@ uniform vec3 outline_color : source_color;
 uniform vec2 squiggle_time_modifier = vec2(1., 10.);
 uniform vec2 squiggle_uv_stretch = vec2(10., 2.);
 uniform float squiggle_intensity = .0001;
-
-/**
-* Robert Cross will be slightly faster but it does skimp a bit on the corners
-*/
-uniform bool robertCross_instead_of_sobel = true;
 
 uniform float normal_sobel_offset = .01;
 uniform float normal_thresh = .01;
@@ -85,9 +79,6 @@ void vertex() {
 	POSITION = vec4(2. * VERTEX.xy, 1.0, 1.0);
 }
 
-ROBERT_CROSS_DEFINE(robertCrossNormal)
-ROBERT_CROSS_DEFINE(robertCrossDepth)
-ROBERT_CROSS_DEFINE(robertCrossColor)
 SOBEL_DEFINE(sobelNormal)
 SOBEL_DEFINE(sobelDepth)
 SOBEL_DEFINE(sobelColor)
@@ -108,15 +99,10 @@ void fragment() {
 	float displacementNoise = snoise(squiggle_uv_stretch * SCREEN_UV + timeModifier) * texture(DEPTH_TEXTURE, SCREEN_UV).x;
 	vec2 modifiedUV = SCREEN_UV + .25 * pow(squiggle_intensity, 2) * displacementNoise;
 
-	if(robertCross_instead_of_sobel){
-		normal_outline = robertCrossNormal(NORMAL_TEXTURE, modifiedUV, aspect_modifier * normal_sobel_offset, normal_thresh);
-		depth_outline = robertCrossDepth(DEPTH_TEXTURE, modifiedUV, aspect_modifier * depth_sobel_offset, depth_thresh);
-		color_outline = robertCrossColor(SCREEN_TEXTURE, modifiedUV, aspect_modifier * color_sobel_offset, color_thresh);
-	} else {
-		normal_outline = sobelNormal(NORMAL_TEXTURE, modifiedUV, aspect_modifier * normal_sobel_offset, normal_thresh);
-		depth_outline = sobelDepth(DEPTH_TEXTURE, modifiedUV, aspect_modifier * depth_sobel_offset, depth_thresh);
-		color_outline = sobelColor(SCREEN_TEXTURE, modifiedUV, aspect_modifier * color_sobel_offset, color_thresh);
-	}
+
+	normal_outline = sobelNormal(NORMAL_TEXTURE, modifiedUV, aspect_modifier * normal_sobel_offset, normal_thresh);
+	depth_outline = sobelDepth(DEPTH_TEXTURE, modifiedUV, aspect_modifier * depth_sobel_offset, depth_thresh);
+	color_outline = sobelColor(SCREEN_TEXTURE, modifiedUV, aspect_modifier * color_sobel_offset, color_thresh);
 	
 	float combined_outline = max(max(normal_outline, depth_outline), color_outline);
 	

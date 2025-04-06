@@ -29,7 +29,6 @@ shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/squiggle_time_modifier = Vector2(1, 10)
 shader_parameter/squiggle_uv_stretch = Vector2(10, 2)
 shader_parameter/squiggle_intensity = 0.358
-shader_parameter/robertCross_instead_of_sobel = false
 shader_parameter/normal_sobel_offset = 0.203
 shader_parameter/normal_thresh = 485.874
 shader_parameter/depth_sobel_offset = 0.656
