@@ -44,7 +44,7 @@ float roberCrossName(in sampler2D tex, in vec2 uv, in vec2 roberts_cross_offset,
 	float differential = sqrt(dot(cross1, cross1) + dot(cross2, cross2)); \
 	differential = differential > thresh * .001 ? 1. : 0.; \
 	return differential; \
-} 
+}
 
 //[p0, p1, p2] -> [(-,-) | (0,-) | (+,-)]
 //[p3, na, p4] -> [(-,0) | (n/a) | (+,0)]
@@ -103,9 +103,9 @@ void fragment() {
 	normal_outline = sobelNormal(NORMAL_TEXTURE, modifiedUV, aspect_modifier * normal_sobel_offset, normal_thresh);
 	depth_outline = sobelDepth(DEPTH_TEXTURE, modifiedUV, aspect_modifier * depth_sobel_offset, depth_thresh);
 	color_outline = sobelColor(SCREEN_TEXTURE, modifiedUV, aspect_modifier * color_sobel_offset, color_thresh);
-	
+
 	float combined_outline = max(max(normal_outline, depth_outline), color_outline);
-	
+
 
 	//ALBEDO = texture(SCREEN_TEXTURE, SCREEN_UV).xyz;
 	//ALBEDO = vec3(noise(SCREEN_UV * 5.));
