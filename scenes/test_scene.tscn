@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bkbstnpjmqxtm"]
+[gd_scene load_steps=24 format=3 uid="uid://bkbstnpjmqxtm"]
 
 [ext_resource type="Shader" uid="uid://ctgbketlnygux" path="res://shaders/normal.gdshader" id="1_h36ic"]
 [ext_resource type="Shader" uid="uid://cojpmqe7wtklj" path="res://shaders/outline.gdshader" id="2_a3rb7"]
@@ -46,6 +46,72 @@ render_priority = 0
 shader = ExtResource("3_gweji")
 shader_parameter/_BaseColor = Color(0.909103, 0.636515, 0.833002, 1)
 
+[sub_resource type="Gradient" id="Gradient_6qxox"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gthg3"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ntc4i"]
+seamless = true
+color_ramp = SubResource("Gradient_6qxox")
+noise = SubResource("FastNoiseLite_gthg3")
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_u0xbq"]
+_shader_parameters = {
+&"bias_distance": 512.0,
+&"blend_sharpness": 0.87,
+&"depth_blur": 0.0,
+&"enable_macro_variation": true,
+&"enable_projection": true,
+&"height_blending": true,
+&"macro_variation1": Color(1, 1, 1, 1),
+&"macro_variation2": Color(1, 1, 1, 1),
+&"macro_variation_slope": 0.333,
+&"mipmap_bias": 1.0,
+&"noise1_angle": 0.0,
+&"noise1_offset": Vector2(0.5, 0.5),
+&"noise1_scale": 0.04,
+&"noise2_scale": 0.076,
+&"noise3_scale": 0.225,
+&"noise_texture": SubResource("NoiseTexture2D_ntc4i"),
+&"projection_angular_division": 2.0,
+&"projection_threshold": 0.8,
+&"world_space_normal_blend": true
+}
+show_checkered = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pln1h"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_8gixj"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_pln1h")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_hf2sn"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_8gixj")])
+
 [node name="Node3D" type="Node3D"]
 
 [node name="CameraStuff" type="Node3D" parent="."]
@@ -61,6 +127,7 @@ skeleton = NodePath("../..")
 metadata/_edit_lock_ = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraStuff"]
+transform = Transform3D(-0.0593901, 0.319184, -0.94583, -0.0455497, 0.945649, 0.321983, 0.997195, 0.0622049, -0.0416235, -167.572, 1.31792, 127.128)
 
 [node name="TestEnviroment" type="Node3D" parent="."]
 visible = false
@@ -93,12 +160,14 @@ smooth_faces = false
 material = SubResource("ShaderMaterial_p5wyk")
 
 [node name="IndiaStuff" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -163.597, 1.52588e-05, 127.755)
 
 [node name="Bushes" parent="IndiaStuff" instance=ExtResource("4_2d7xy")]
 
 [node name="Firepit2" parent="IndiaStuff" instance=ExtResource("5_t61ee")]
 
 [node name="Groundplane2" parent="IndiaStuff" instance=ExtResource("6_u18tk")]
+visible = false
 
 [node name="Trees" parent="IndiaStuff" instance=ExtResource("9_61egx")]
 
@@ -107,3 +176,11 @@ material = SubResource("ShaderMaterial_p5wyk")
 [node name="Tent2" parent="IndiaStuff" instance=ExtResource("10_eiubx")]
 
 [node name="Seating2" parent="IndiaStuff" instance=ExtResource("11_ntc4i")]
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+data_directory = "res://Terrain"
+material = SubResource("Terrain3DMaterial_u0xbq")
+assets = SubResource("Terrain3DAssets_hf2sn")
+show_checkered = true
+top_level = true
+metadata/_edit_lock_ = true
