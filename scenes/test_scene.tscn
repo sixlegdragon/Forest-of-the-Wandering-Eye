@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c6k0l0sdlwdxf" path="res://graphics/models/modelScenes/vessels.tscn" id="9_gthg3"]
 [ext_resource type="PackedScene" uid="uid://dkgk25vtjuvib" path="res://graphics/models/modelScenes/tent_v2.tscn" id="10_eiubx"]
 [ext_resource type="PackedScene" uid="uid://dqmncpm8qhiw2" path="res://graphics/models/modelScenes/seating.tscn" id="11_ntc4i"]
-[ext_resource type="Texture2D" uid="uid://xq24hixle5q3" path="res://graphics/textures/TerrainTextures/T_Dirt/T_Dirt_albedo_height.png" id="12_ntc4i"]
-[ext_resource type="Texture2D" uid="uid://c1kxxgib6sbnf" path="res://graphics/textures/TerrainTextures/T_Dirt/T_Dirt_normal_roughness.png" id="13_u0xbq"]
+[ext_resource type="Texture2D" uid="uid://b6nt13scwe7ni" path="res://graphics/textures/TerrainTextures/T_Dirt/T_Dirt_Albedo+Height.png" id="12_ntc4i"]
+[ext_resource type="Texture2D" uid="uid://6hwd23nw8jb7" path="res://graphics/textures/TerrainTextures/T_Dirt/T_Dirt_Normal+Roughness.png" id="13_u0xbq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sakus"]
 render_priority = 0
@@ -111,9 +111,10 @@ last_shadow_lod = 0
 lod0_range = 128.0
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_pln1h"]
-name = "T_Dirt_albedo_height"
+name = "Dirt"
 albedo_texture = ExtResource("12_ntc4i")
 normal_texture = ExtResource("13_u0xbq")
+uv_scale = 1.0
 
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_hf2sn"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_8gixj")])
