@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bkbstnpjmqxtm"]
+[gd_scene load_steps=27 format=3 uid="uid://bkbstnpjmqxtm"]
 
 [ext_resource type="Shader" uid="uid://ctgbketlnygux" path="res://shaders/normal.gdshader" id="1_h36ic"]
 [ext_resource type="Shader" uid="uid://cojpmqe7wtklj" path="res://shaders/outline.gdshader" id="2_a3rb7"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c6k0l0sdlwdxf" path="res://graphics/models/modelScenes/vessels.tscn" id="9_gthg3"]
 [ext_resource type="PackedScene" uid="uid://dkgk25vtjuvib" path="res://graphics/models/modelScenes/tent_v2.tscn" id="10_eiubx"]
 [ext_resource type="PackedScene" uid="uid://dqmncpm8qhiw2" path="res://graphics/models/modelScenes/seating.tscn" id="11_ntc4i"]
+[ext_resource type="Texture2D" uid="uid://xq24hixle5q3" path="res://graphics/textures/TerrainTextures/T_Dirt/T_Dirt_albedo_height.png" id="12_ntc4i"]
+[ext_resource type="Texture2D" uid="uid://c1kxxgib6sbnf" path="res://graphics/textures/TerrainTextures/T_Dirt/T_Dirt_normal_roughness.png" id="13_u0xbq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sakus"]
 render_priority = 0
@@ -89,7 +91,6 @@ _shader_parameters = {
 &"projection_threshold": 0.8,
 &"world_space_normal_blend": true
 }
-show_checkered = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pln1h"]
 transparency = 4
@@ -109,8 +110,14 @@ last_lod = 0
 last_shadow_lod = 0
 lod0_range = 128.0
 
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_pln1h"]
+name = "T_Dirt_albedo_height"
+albedo_texture = ExtResource("12_ntc4i")
+normal_texture = ExtResource("13_u0xbq")
+
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_hf2sn"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_8gixj")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_pln1h")])
 
 [node name="Node3D" type="Node3D"]
 
@@ -181,6 +188,5 @@ visible = false
 data_directory = "res://Terrain"
 material = SubResource("Terrain3DMaterial_u0xbq")
 assets = SubResource("Terrain3DAssets_hf2sn")
-show_checkered = true
 top_level = true
 metadata/_edit_lock_ = true
