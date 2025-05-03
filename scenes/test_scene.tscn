@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bkbstnpjmqxtm"]
+[gd_scene load_steps=30 format=3 uid="uid://bkbstnpjmqxtm"]
 
 [ext_resource type="Shader" uid="uid://ctgbketlnygux" path="res://shaders/normal.gdshader" id="1_h36ic"]
 [ext_resource type="Shader" uid="uid://cojpmqe7wtklj" path="res://shaders/outline.gdshader" id="2_a3rb7"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://dkgk25vtjuvib" path="res://graphics/models/modelScenes/tent_v2.tscn" id="10_eiubx"]
 [ext_resource type="PackedScene" uid="uid://dqmncpm8qhiw2" path="res://graphics/models/modelScenes/seating.tscn" id="11_ntc4i"]
 [ext_resource type="Texture2D" uid="uid://b6nt13scwe7ni" path="res://graphics/textures/TerrainTextures/T_Dirt/T_Dirt_Albedo+Height.png" id="12_ntc4i"]
+[ext_resource type="Texture2D" uid="uid://pdrp6mmrqmbf" path="res://graphics/textures/TerrainTextures/T_Grass/T_Grass_Albedo+Height.png" id="12_pln1h"]
+[ext_resource type="Texture2D" uid="uid://2s7731iwmgn" path="res://graphics/textures/TerrainTextures/T_Grass/T_Grass_Normal+Roughness.png" id="13_8gixj"]
 [ext_resource type="Texture2D" uid="uid://6hwd23nw8jb7" path="res://graphics/textures/TerrainTextures/T_Dirt/T_Dirt_Normal+Roughness.png" id="13_u0xbq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sakus"]
@@ -27,15 +29,15 @@ flip_faces = true
 render_priority = 0
 shader = ExtResource("2_a3rb7")
 shader_parameter/screen_overlay = ExtResource("3_6qxox")
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/squiggle_time_modifier = Vector2(1, 10)
+shader_parameter/outline_color = Color(0.197937, 0.197937, 0.197937, 1)
+shader_parameter/squiggle_time_modifier = Vector2(1, 2)
 shader_parameter/squiggle_uv_stretch = Vector2(10, 2)
-shader_parameter/squiggle_intensity = 0.358
+shader_parameter/squiggle_intensity = 0.3
 shader_parameter/normal_sobel_offset = 0.203
-shader_parameter/normal_thresh = 485.874
-shader_parameter/depth_sobel_offset = 0.656
-shader_parameter/depth_thresh = 10.877
-shader_parameter/color_sobel_offset = 0.05
+shader_parameter/normal_thresh = 700.0
+shader_parameter/depth_sobel_offset = 0.5
+shader_parameter/depth_thresh = 2.432
+shader_parameter/color_sobel_offset = 0.02
 shader_parameter/color_thresh = 150.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_2uar1"]
@@ -111,14 +113,25 @@ last_shadow_lod = 0
 lod0_range = 128.0
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_pln1h"]
+name = "Grass"
+albedo_texture = ExtResource("12_pln1h")
+normal_texture = ExtResource("13_8gixj")
+normal_depth = 1.1
+roughness = 0.131
+uv_scale = 1.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_hf2sn"]
 name = "Dirt"
+id = 1
 albedo_texture = ExtResource("12_ntc4i")
 normal_texture = ExtResource("13_u0xbq")
+normal_depth = 1.0
+roughness = 0.418
 uv_scale = 1.0
 
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_hf2sn"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_8gixj")])
-texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_pln1h")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_pln1h"), SubResource("Terrain3DTextureAsset_hf2sn")])
 
 [node name="Node3D" type="Node3D"]
 
